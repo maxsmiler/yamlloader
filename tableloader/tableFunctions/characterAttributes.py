@@ -16,7 +16,7 @@ def importyaml(connection,metadata,sourcePath,language='en'):
     chrAttributes = Table('chrAttributes',metadata)
     
     trans = connection.begin()
-    with open(os.path.join(sourcePath,'fsd','characterAttributes.yaml')) as yamlstream:
+    with open(os.path.join(sourcePath,'fsd','characterAttributes.yaml'), encoding="utf8") as yamlstream:
         print(f"importing {os.path.basename(yamlstream.name)}")
         characterattributes=load(yamlstream,Loader=SafeLoader)
         print(f"{os.path.basename(yamlstream.name)} loaded")

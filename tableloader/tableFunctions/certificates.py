@@ -16,7 +16,7 @@ def importyaml(connection,metadata,sourcePath):
     skillmap={"basic":0,"standard":1,"improved":2,"advanced":3,"elite":4}
 
     print("Importing Certificates")
-    with open(os.path.join(sourcePath,'fsd','certificates.yaml')) as yamlstream:
+    with open(os.path.join(sourcePath,'fsd','certificates.yaml'), encoding="utf8") as yamlstream:
         print(f"importing {os.path.basename(yamlstream.name)}")
         trans = connection.begin()
         certificates=load(yamlstream,Loader=SafeLoader)

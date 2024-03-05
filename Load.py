@@ -57,24 +57,31 @@ ancestries.importyaml(connection, metadata, sourcePath, language)
 bloodlines.importyaml(connection, metadata, sourcePath, language)
 npccorporations.importyaml(connection, metadata, sourcePath, language)
 characterAttributes.importyaml(connection, metadata, sourcePath, language)
-agents.importyaml(connection, metadata, sourcePath, language)
+if(config.get("Tables", "agents") == "true"):
+    agents.importyaml(connection, metadata, sourcePath, language)
 typeMaterials.importyaml(connection, metadata, sourcePath, language)
 dogmaTypes.importyaml(connection, metadata, sourcePath, language)
 dogmaEffects.importyaml(connection, metadata, sourcePath, language)
 dogmaAttributes.importyaml(connection, metadata, sourcePath, language)
 dogmaAttributeCategories.importyaml(connection, metadata, sourcePath, language)
-blueprints.importyaml(connection, metadata, sourcePath)
+if(config.get("Tables", "blueprints") == "true"):
+    blueprints.importyaml(connection, metadata, sourcePath)
 marketGroups.importyaml(connection, metadata, sourcePath, language)
 metaGroups.importyaml(connection, metadata, sourcePath, language)
-controlTowerResources.importyaml(connection, metadata, sourcePath, language)
+if(config.get("Tables", "controltowers") == "true"):
+    controlTowerResources.importyaml(connection, metadata, sourcePath, language)
 categories.importyaml(connection, metadata, sourcePath, language)
-certificates.importyaml(connection, metadata, sourcePath)
-graphics.importyaml(connection, metadata, sourcePath)
+if(config.get("Tables", "certificates") == "true"):
+    certificates.importyaml(connection, metadata, sourcePath)
+if (config.get("Tables", "graphics") == "true"):
+    graphics.importyaml(connection, metadata, sourcePath)
 groups.importyaml(connection, metadata, sourcePath, language)
 icons.importyaml(connection, metadata, sourcePath)
-skins.importyaml(connection, metadata, sourcePath)
+if(config.get("Tables", "skins") == "true"):
+    skins.importyaml(connection, metadata, sourcePath)
 types.importyaml(connection, metadata, sourcePath, language)
-planetary.importyaml(connection, metadata, sourcePath, language)
+if(config.get("Tables", "planets") == "true"):
+    planetary.importyaml(connection, metadata, sourcePath, language)
 bsdTables.importyaml(connection, metadata, sourcePath)
 universe.importyaml(connection, metadata, sourcePath)
 universe.buildJumps(connection, database)

@@ -11,12 +11,12 @@ def importVolumes(connection: sa.Connection, metadata: sa.MetaData, sourcePath: 
 
     invVolumes = Table('invVolumes',metadata)
     invTypes = Table('invTypes',metadata)
-    with open(os.path.join(sourcePath,'invVolumes1.csv')) as groupVolumes:
+    with open(os.path.join(sourcePath,'invVolumes1.csv'), encoding="utf8") as groupVolumes:
         volumereader=csv.reader(groupVolumes, delimiter=',')
         for group in volumereader:
             sel = sa.select(invTypes.c.typeID, literal_column(group[0])).where(invTypes.c.groupID == literal_column(group[1]))
             connection.execute(invVolumes.insert().from_select(['typeID','volume'], sel))
-    with open(os.path.join(sourcePath,'invVolumes2.csv')) as groupVolumes:
+    with open(os.path.join(sourcePath,'invVolumes2.csv'), encoding="utf8") as groupVolumes:
         volumereader=csv.reader(groupVolumes, delimiter=',')
         for group in volumereader:
             connection.execute(invVolumes.insert().values(typeID=group[1],volume=group[0]))

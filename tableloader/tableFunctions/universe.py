@@ -172,7 +172,7 @@ def importyaml(connection,metadata,sourcePath):
             systems=glob.glob(os.path.join(chead,'*','solarsystem.staticdata'))
             print("Importing Systems")
             for systemfile in systems:
-                with open(systemfile) as yamlstream:
+                with open(systemfile, encoding="utf8") as yamlstream:
                     system=load(yamlstream,Loader=SafeLoader)
                 systemname=f"System #{system['solarSystemID']}"
                 with contextlib.suppress(Exception):

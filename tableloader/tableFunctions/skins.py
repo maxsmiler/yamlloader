@@ -18,7 +18,7 @@ def importyaml(connection,metadata,sourcePath):
     trans = connection.begin()
     print("Importing Skins")
     print("opening Yaml1")
-    with open(os.path.join(sourcePath,'fsd','skins.yaml')) as yamlstream:
+    with open(os.path.join(sourcePath,'fsd','skins.yaml'), encoding="utf8") as yamlstream:
         print(f"importing {os.path.basename(yamlstream.name)}")
         skins=load(yamlstream,Loader=SafeLoader)
         print(f"{os.path.basename(yamlstream.name)} loaded")

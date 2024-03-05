@@ -18,7 +18,7 @@ def importyaml(connection,metadata,sourcePath,language='en'):
     agtAgentsInSpace = Table('agtAgentsInSpace',metadata)
     agtResearchAgents = Table ('agtResearchAgents',metadata)
     print("Importing Agents")
-    with open(os.path.join(sourcePath,'fsd','agents.yaml')) as yamlstream:
+    with open(os.path.join(sourcePath,'fsd','agents.yaml'), encoding="utf8") as yamlstream:
         print(f"importing {os.path.basename(yamlstream.name)}")
         trans = connection.begin()
         agents=load(yamlstream,Loader=SafeLoader)

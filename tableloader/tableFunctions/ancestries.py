@@ -1,6 +1,5 @@
 import sys
 import os
-#sys.setdefaultencoding("utf-8")
 from sqlalchemy import Table
 
 from yaml import load
@@ -16,7 +15,7 @@ def importyaml(connection,metadata,sourcePath,language='en'):
     chrAncestries = Table('chrAncestries',metadata)
     
     trans = connection.begin()
-    with open(os.path.join(sourcePath,'fsd','ancestries.yaml')) as yamlstream:
+    with open(os.path.join(sourcePath,'fsd','ancestries.yaml'), encoding="utf8") as yamlstream:
         print(f"importing {os.path.basename(yamlstream.name)}")
         characterancestries=load(yamlstream,Loader=SafeLoader)
         print(f"{os.path.basename(yamlstream.name)} loaded")

@@ -29,7 +29,7 @@ def importyaml(connection: sqlalchemy.Connection, metadata: sqlalchemy.MetaData,
         tablevar = sqlalchemy.Table(tablename, metadata, autoload_with=connection)
         print(f"Importing {file}")
         trans = connection.begin()
-        with open(file) as yamlstream:
+        with open(file, encoding="utf8") as yamlstream:
             print(f"importing {os.path.basename(yamlstream.name)}")
             rows=load(yamlstream,Loader=SafeLoader)
             print(f"{os.path.basename(yamlstream.name)} loaded")

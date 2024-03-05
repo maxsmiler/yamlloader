@@ -1,10 +1,11 @@
-#/bin/bash -l
+#!/usr/bin/env bash
 
 ## this is the script I run to build everything. It will not be directly useful for you. 
 
+#DATABASES= { "sqlite" "mysql" "postgres" }
 
 DATE=$(date +%Y%m%d)
-SCRIPT_PATH=$(realpath -s ${BASH_SOURCE})
+SCRIPT_PATH=$(realpath -s "${BASH_SOURCE}" )
 SCRIPT_DIR=$(dirname ${SCRIPT_PATH})
 BASE_DIR=${SCRIPT_DIR}/data
 
@@ -79,38 +80,38 @@ fi
 cd ${SDE_DIR}
 
 
-if [ ! -d ${SDE_DIR}/.git ]; then
-    (cd ${SDE_DIR} && git init)
-fi
+# if [ ! -d ${SDE_DIR}/.git ]; then
+#     (cd ${SDE_DIR} && git init)
+# fi
 
-if [ -d ${SDE_DIR}/.git ]; then
-	echo "git add"
-	git add -A .
-	echo "git commit"
-	git commit -m "$DATE update"
-	git ls-remote >/dev/null 2>&1
-	if [ $? = 0 ]; then
-		echo "git push"
-		git push origin master
-	fi
-else
-	echo "no git repo in \"${SDE_DIR}\". skipping git updates"
-fi
+# if [ -d ${SDE_DIR}/.git ]; then
+# 	echo "git add"
+# 	git add -A .
+# 	echo "git commit"
+# 	git commit -m "$DATE update"
+# 	git ls-remote >/dev/null 2>&1
+# 	if [ $? = 0 ]; then
+# 		echo "git push"
+# 		git push origin master
+# 	fi
+# else
+# 	echo "no git repo in \"${SDE_DIR}\". skipping git updates"
+# fi
 
 
-if [ ! -d ${BASE_DIR}/env ]; then
-	python3 -m venv ${BASE_DIR}/env
-	. ${BASE_DIR}/env/bin/activate
-	pip install -U pip wheel setuptools
+if [ ! -d ${BASE_DIR}/venv ]; then
+	python3 -m venv ${BASE_DIR}/venv
+	. ${BASE_DIR}/venv/bin/activate
+	pip3 install -U pip wheel setuptools
 	if [ -r ${SCRIPT_DIR}/requirements.txt ]; then
-		pip install -U --prefer-binary -r ${SCRIPT_DIR}/requirements.txt
+		pip3 install -U --prefer-binary -r ${SCRIPT_DIR}/requirements.txt
 	fi
 	deactivate
 fi
 
 
-if [ -f ${BASE_DIR}/env/bin/activate ]; then
-	. ${BASE_DIR}/env/bin/activate
+if [ -f ${BASE_DIR}/venv/bin/activate ]; then
+	. ${BASE_DIR}/venv/bin/activate
 fi
 
 
@@ -118,17 +119,18 @@ cd ${SCRIPT_DIR}
 
 
 #for DRIVER in "sqlite" "mysql" "postgres" "postgresschema"; do
-for DRIVER in "sqlite" "mysql" "postgres" ; do
+#for DRIVER in "sqlite" "mysql" "postgres" ; do
+for DRIVER in "sqlite" ; do
 	echo "${DRIVER}"
-	python Load.py ${DRIVER} >${DRIVER}.log
-	python getitems-esi.py ${DRIVER} >>${DRIVER}.log
-	python getgroups-esi.py ${DRIVER} >>${DRIVER}.log
-	python getmarketgroups-esi.py ${DRIVER} >>${DRIVER}.log
+	python3 Load.py ${DRIVER} | tee ${DRIVER}.log
+	python3 getitems-esi.py ${DRIVER} >>${DRIVER}.log
+	python3 getgroups-esi.py ${DRIVER} >>${DRIVER}.log
+	python3 getmarketgroups-esi.py ${DRIVER} >>${DRIVER}.log
 done
 
 
-python TypesToJson.py >typestojson.log
-python exportTypesxlsx.py
+python3 TypesToJson.py >typestojson.log
+python3 exportTypesxlsx.py
 
 
 if [ -d ${OUTPUT_DIR} ]; then

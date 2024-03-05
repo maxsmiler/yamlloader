@@ -20,7 +20,7 @@ def importyaml(connection,metadata,sourcePath,language='en'):
     dgmAttributes = Table('dgmTypeAttributes',metadata)
     
     trans = connection.begin()
-    with open(os.path.join(sourcePath,'fsd','typeDogma.yaml')) as yamlstream:
+    with open(os.path.join(sourcePath,'fsd','typeDogma.yaml'), encoding="utf8") as yamlstream:
         print(f"importing {os.path.basename(yamlstream.name)}")
         dogmaEffects=load(yamlstream,Loader=SafeLoader)
         print(f"{os.path.basename(yamlstream.name)} loaded")

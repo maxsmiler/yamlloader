@@ -12,7 +12,7 @@ from sqlalchemy import Table
 def importyaml(connection,metadata,sourcePath):
     eveGraphics = Table('eveGraphics',metadata)
     print("Importing Graphics")
-    with open(os.path.join(sourcePath,'fsd','graphicIDs.yaml')) as yamlstream:
+    with open(os.path.join(sourcePath,'fsd','graphicIDs.yaml'), encoding="utf8") as yamlstream:
         print(f"importing {os.path.basename(yamlstream.name)}")
         trans = connection.begin()
         graphics=load(yamlstream,Loader=SafeLoader)

@@ -16,7 +16,7 @@ def importyaml(connection, metadata, sourcePath,language='en'):
     invTraits = Table('invTraits',metadata)
     invMetaTypes = Table('invMetaTypes',metadata)
     print("Importing Types")
-    with open(os.path.join(sourcePath,'fsd','typeIDs.yaml')) as yamlstream:
+    with open(os.path.join(sourcePath,'fsd','typeIDs.yaml'), encoding="utf8") as yamlstream:
         print(f"importing {os.path.basename(yamlstream.name)}")
         trans = connection.begin()
         typeids=load(yamlstream,Loader=SafeLoader)
